@@ -31,6 +31,7 @@
                 radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
         }
 
+        /* Component Base */
         .component {
             position: absolute;
             background: linear-gradient(145deg, rgba(30, 30, 35, 0.9), rgba(20, 20, 25, 0.9));
@@ -41,465 +42,328 @@
             box-shadow: 
                 0 4px 16px rgba(0, 0, 0, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            display: grid;
+            grid-template-columns: 15px auto 15px;
             overflow: visible;
-            display: flex;
-            flex-direction: column;
+            transition: all 0.2s ease;
+            z-index: 1;
+            width: auto;
+            height: auto;
         }
 
         .component:hover {
             transform: translateY(-2px);
-            border-color: rgba(59, 130, 246, 0.3);
-            box-shadow: 
-                0 6px 24px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(59, 130, 246, 0.2);
         }
 
-        .component-category {
-            position: absolute;
-            top: -5px;
-            right: 6px;
-            background: rgba(168, 85, 247, 0.15);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            padding: 1px 4px;
-            border-radius: 3px;
-            font-size: 8px;
-            font-weight: 500;
-            color: #a855f7;
-        }
-
-        .component-body {
-            padding: 8px 0px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            border-radius: 5px;
-            min-height: fit-content;
-            justify-content: center;
-            align-items: stretch;
-        }
-
-        .component-body-title-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
+        /* Component Title */
+        .component-title {
+            grid-column: 2;
             background: rgba(20, 20, 25, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 4px;
-            margin: 4px 8px;
+            padding: 3px;
+            margin: 8px 0;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            justify-self: center;
         }
 
-        .component-body-title {
+        .component-title-text {
             writing-mode: vertical-rl;
             text-orientation: mixed;
             transform: rotate(180deg);
-            font-size: 11px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.8);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            user-select: none;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             white-space: nowrap;
+            color: #ffffff;
+            text-transform: uppercase;
         }
 
-        .component-ports {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+        /* Ports */
+        .port-column {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             gap: 6px;
-            padding: 4px 0;
+            padding: 8px 0;
         }
 
-        .component-ports.inputs {
-            left: -6px;
+        .port-column.inputs {
+            grid-column: 1;
+            justify-self: start;
+            transform: translateX(-50%);
         }
 
-        .component-ports.outputs {
-            right: -6px;
+        .port-column.outputs {
+            grid-column: 3;
+            justify-self: end;
+            transform: translateX(50%);
         }
 
         .port {
-            width: 12px;
-            height: 12px;
-            background: rgba(30, 30, 35, 0.9);
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
-            cursor: crosshair;
-            transition: all 0.2s ease;
+            background: #1e1e23;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 7px;
+            font-size: 10px;
             font-weight: 600;
             color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .port:hover {
-            background: #3b82f6;
-            border-color: #3b82f6;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
-            transform: scale(1.2);
+            background: #2a2a35;
+            transform: scale(1.1);
+        }
+
+        .port.input {
+            background: #2a2a35;
         }
 
         .port.output {
-            background: rgba(168, 85, 247, 0.2);
-            border-color: rgba(168, 85, 247, 0.4);
+            background: #6366f1;
         }
 
-        .port.output:hover {
-            background: #a855f7;
-            border-color: #a855f7;
-            box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
-        }
-
+        /* Tooltip */
         .component-drawer {
             position: absolute;
-            top: 100%;
+            bottom: -10px;
             left: 50%;
-            background: linear-gradient(145deg, rgba(15, 15, 20, 0.95), rgba(10, 10, 15, 0.95));
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 12px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(59, 130, 246, 0.1);
-            transform: translateX(-50%) translateY(-20px) scale(0.8);
+            transform: translateX(-50%) translateY(100%);
+            background: rgba(15, 15, 20, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 8px 12px;
+            width: 240px;
             opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            transition: all 0.2s ease;
             z-index: 10;
-            width: 350px;
-            max-height: 280px;
-            overflow-y: auto;
-            margin-top: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .component:hover .component-drawer {
-            transform: translateX(-50%) translateY(0) scale(1);
             opacity: 1;
-            visibility: visible;
+            bottom: -15px;
+            pointer-events: all;
         }
 
-        .component-drawer::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-bottom: 6px solid rgba(59, 130, 246, 0.2);
+        .component-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
 
-        .component-drawer::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 5px solid rgba(15, 15, 20, 0.95);
-        }
-
-        .drawer-content {
-            padding: 12px;
-        }
-
-        .drawer-section {
-            margin-bottom: 10px;
-        }
-
-        .drawer-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .drawer-title {
-            font-size: 10px;
+        .component-drawer-title {
+            font-size: 14px;
             font-weight: 600;
-            color: #3b82f6;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .drawer-text {
-            font-size: 11px;
-            line-height: 1.4;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 6px;
-        }
-
-        .drawer-specs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-        }
-
-        .spec-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-            padding: 6px;
-        }
-
-        .spec-label {
-            font-size: 9px;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 3px;
-        }
-
-        .spec-value {
+        .component-category {
             font-size: 10px;
-            color: #ffffff;
-            font-family: 'SF Mono', Monaco, monospace;
-        }
-
-        .port-container {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-weight: 500;
+            color: #a855f7;
+            background: rgba(168, 85, 247, 0.1);
+            padding: 2px 6px;
             border-radius: 4px;
-            padding: 6px;
         }
 
-        .port-list {
+        .component-drawer-content {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        
+        .component-drawer-io {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 8px;
+        }
+        
+        .component-drawer-io-section {
+            flex: 1;
+        }
+        
+        .component-drawer-io-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .component-drawer-io-list {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
         }
-
-        .port-item {
+        
+        .component-drawer-io-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 10px;
+        }
+        
+        .component-drawer-io-item span {
+            margin-left: 4px;
             color: rgba(255, 255, 255, 0.7);
-        }
-
-        .port-indicator {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #3b82f6;
-            flex-shrink: 0;
-        }
-
-        .port-indicator.output {
-            background: #a855f7;
         }
     </style>
 </head>
 <body>
-    <div class="workspace" id="workspace">
+    <div id="workspace" class="workspace">
+        <!-- Components will be created dynamically -->
     </div>
 
     <script>
+        // Component data
         const componentData = [
             {
-                "name": "Volume Blend",
-                "nickName": "vBlend",
-                "category": "Dendro",
-                "subCategory": "Filters",
-                "description": "Blend between two volumes",
-                "libraryName": "DendroGH",
-                "global_address": "C0001",
-                "category_address": "Dendro.001",
-                "inputs": [
-                    {
-                        "name": "Volume A",
-                        "nickName": "A",
-                        "typeName": "Generic Data",
-                        "address": "C0001.I01"
-                    },
-                    {
-                        "name": "Volume B",
-                        "nickName": "B",
-                        "typeName": "Generic Data",
-                        "address": "C0001.I02"
-                    },
-                    {
-                        "name": "Parameter",
-                        "nickName": "t",
-                        "typeName": "Number",
-                        "address": "C0001.I03"
-                    },
-                    {
-                        "name": "End time",
-                        "nickName": "E",
-                        "typeName": "Number",
-                        "address": "C0001.I04"
-                    },
-                    {
-                        "name": "Mask",
-                        "nickName": "M",
-                        "typeName": "Generic Data",
-                        "address": "C0001.I05"
-                    }
-                ],
-                "outputs": [
-                    {
-                        "name": "Result",
-                        "nickName": "R",
-                        "typeName": "Generic Data",
-                        "address": "C0001.O01"
-                    }
-                ]
+                title: "vBlend",
+                category: "Dendro.Filters.C0001",
+                description: "Blends multiple vertex attributes together using weights.",
+                inputs: ["A", "B", "t", "E", "M"],
+                outputs: ["R"]
             },
             {
-                "name": "Brep Edges",
-                "nickName": "Edges",
-                "category": "Surface",
-                "subCategory": "Analysis",
-                "description": "Extract the edge curves of a brep.",
-                "libraryName": "Surface Components",
-                "global_address": "C0004",
-                "category_address": "Surface.001",
-                "inputs": [
-                    {
-                        "name": "Brep",
-                        "nickName": "B",
-                        "typeName": "Brep",
-                        "address": "C0004.I01"
-                    }
-                ],
-                "outputs": [
-                    {
-                        "name": "Naked",
-                        "nickName": "En",
-                        "typeName": "Curve",
-                        "address": "C0004.O01"
-                    },
-                    {
-                        "name": "Interior",
-                        "nickName": "Ei",
-                        "typeName": "Curve",
-                        "address": "C0004.O02"
-                    },
-                    {
-                        "name": "Non-Manifold",
-                        "nickName": "Em",
-                        "typeName": "Curve",
-                        "address": "C0004.O03"
-                    }
-                ]
+                title: "Edges",
+                category: "Surface.Analysis.C0002",
+                description: "Detects and extracts edge features from a surface.",
+                inputs: ["B"],
+                outputs: ["En", "Ei", "Em"]
             }
         ];
 
-        function createComponent(componentDef, x, y) {
+        // Create component function with new grid-based layout
+        function createComponent(data, x, y) {
             const component = document.createElement('div');
             component.className = 'component';
             component.style.left = `${x}px`;
             component.style.top = `${y}px`;
-            component.style.width = '120px';
-
-            component.innerHTML = `
-                <div class="component-body">
-                    <div class="component-category">${componentDef.category}.${componentDef.subCategory}</div>
-                    <div class="component-body-title-container">
-                        <div class="component-body-title">${componentDef.nickName || componentDef.name}</div>
-                    </div>
-                    <div class="component-ports inputs">
-                        ${componentDef.inputs ? componentDef.inputs.map(input => 
-                            `<div class="port" title="${input.name}">${input.nickName}</div>`
-                        ).join('') : ''}
-                    </div>
-                    <div class="component-ports outputs">
-                        ${componentDef.outputs ? componentDef.outputs.map(output => 
-                            `<div class="port output" title="${output.name}">${output.nickName}</div>`
-                        ).join('') : ''}
-                    </div>
-                </div>
-                <div class="component-drawer">
-                    <div class="drawer-content">
-                        <div class="drawer-section">
-                            <div class="drawer-title">Description</div>
-                            <div class="drawer-text">${componentDef.description}</div>
-                        </div>
-                        <div class="drawer-section">
-                            <div class="drawer-title">Component Info</div>
-                            <div class="drawer-specs">
-                                <div class="spec-item">
-                                    <div class="spec-label">Library</div>
-                                    <div class="spec-value">${componentDef.libraryName}</div>
-                                </div>
-                                <div class="spec-item">
-                                    <div class="spec-label">Address</div>
-                                    <div class="spec-value">${componentDef.global_address}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="drawer-section">
-                            <div class="drawer-title">Ports</div>
-                            <div class="drawer-specs">
-                                <div class="port-container">
-                                    <div class="spec-label">Inputs</div>
-                                    <div class="port-list">
-                                        ${componentDef.inputs ? componentDef.inputs.map(input => 
-                                            `<div class="port-item">
-                                                <div class="port-indicator"></div>
-                                                <span>${input.nickName || input.name} (${input.typeName})</span>
-                                            </div>`
-                                        ).join('') : '<div class="port-item">No inputs</div>'}
-                                    </div>
-                                </div>
-                                <div class="port-container">
-                                    <div class="spec-label">Outputs</div>
-                                    <div class="port-list">
-                                        ${componentDef.outputs ? componentDef.outputs.map(output => 
-                                            `<div class="port-item">
-                                                <div class="port-indicator output"></div>
-                                                <span>${output.nickName || output.name} (${output.typeName})</span>
-                                            </div>`
-                                        ).join('') : '<div class="port-item">No outputs</div>'}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Let the browser calculate the natural height based on content and ports
-            document.body.appendChild(component);
             
-            // Calculate required space for ports
-            const inputsContainer = component.querySelector('.component-ports.inputs');
-            const outputsContainer = component.querySelector('.component-ports.outputs');
+            // Create input ports column
+            const inputsColumn = document.createElement('div');
+            inputsColumn.className = 'port-column inputs';
             
-            const inputsHeight = inputsContainer ? inputsContainer.scrollHeight + 8 : 0; // +8 for padding (4px top + 4px bottom)
-            const outputsHeight = outputsContainer ? outputsContainer.scrollHeight + 8 : 0;
-            const portsRequiredHeight = Math.max(inputsHeight, outputsHeight);
+            data.inputs.forEach(input => {
+                const port = document.createElement('div');
+                port.className = 'port input';
+                port.textContent = input;
+                inputsColumn.appendChild(port);
+            });
             
-            // Calculate content height (now the title container)
-            const contentHeight = component.querySelector('.component-body-title-container').scrollHeight;
+            // Create title
+            const titleContainer = document.createElement('div');
+            titleContainer.className = 'component-title';
             
-            // Set body height to accommodate the larger requirement plus padding
-            const bodyMinHeight = Math.max(portsRequiredHeight, contentHeight) + 16; // +16 for body padding
-            component.querySelector('.component-body').style.minHeight = `${bodyMinHeight}px`;
+            const titleText = document.createElement('div');
+            titleText.className = 'component-title-text';
+            titleText.textContent = data.title;
+            titleContainer.appendChild(titleText);
             
-            const bodyHeight = component.querySelector('.component-body').offsetHeight;
+            // Create output ports column
+            const outputsColumn = document.createElement('div');
+            outputsColumn.className = 'port-column outputs';
             
-            // Set the component height based on the calculated dimensions
-            component.style.height = `${bodyHeight}px`;
+            data.outputs.forEach(output => {
+                const port = document.createElement('div');
+                port.className = 'port output';
+                port.textContent = output;
+                outputsColumn.appendChild(port);
+            });
             
-            // Remove from body and return for proper placement
-            document.body.removeChild(component);
+            // Create tooltip drawer
+            const drawer = document.createElement('div');
+            drawer.className = 'component-drawer';
+            
+            const drawerHeader = document.createElement('div');
+            drawerHeader.className = 'component-drawer-header';
+            
+            const drawerTitle = document.createElement('div');
+            drawerTitle.className = 'component-drawer-title';
+            drawerTitle.textContent = data.title;
+            
+            const category = document.createElement('div');
+            category.className = 'component-category';
+            category.textContent = data.category;
+            
+            drawerHeader.appendChild(drawerTitle);
+            drawerHeader.appendChild(category);
+            
+            const drawerContent = document.createElement('div');
+            drawerContent.className = 'component-drawer-content';
+            drawerContent.textContent = data.description;
+            
+            // Create IO reference section
+            const drawerIO = document.createElement('div');
+            drawerIO.className = 'component-drawer-io';
+            
+            // Inputs section
+            const inputsSection = document.createElement('div');
+            inputsSection.className = 'component-drawer-io-section';
+            
+            const inputsTitle = document.createElement('div');
+            inputsTitle.className = 'component-drawer-io-title';
+            inputsTitle.textContent = 'Inputs';
+            
+            const inputsList = document.createElement('div');
+            inputsList.className = 'component-drawer-io-list';
+            
+            data.inputs.forEach(input => {
+                const inputItem = document.createElement('div');
+                inputItem.className = 'component-drawer-io-item';
+                inputItem.innerHTML = `<strong>${input}</strong><span>: Parameter</span>`;
+                inputsList.appendChild(inputItem);
+            });
+            
+            inputsSection.appendChild(inputsTitle);
+            inputsSection.appendChild(inputsList);
+            
+            // Outputs section
+            const outputsSection = document.createElement('div');
+            outputsSection.className = 'component-drawer-io-section';
+            
+            const outputsTitle = document.createElement('div');
+            outputsTitle.className = 'component-drawer-io-title';
+            outputsTitle.textContent = 'Outputs';
+            
+            const outputsList = document.createElement('div');
+            outputsList.className = 'component-drawer-io-list';
+            
+            data.outputs.forEach(output => {
+                const outputItem = document.createElement('div');
+                outputItem.className = 'component-drawer-io-item';
+                outputItem.innerHTML = `<strong>${output}</strong><span>: Result</span>`;
+                outputsList.appendChild(outputItem);
+            });
+            
+            outputsSection.appendChild(outputsTitle);
+            outputsSection.appendChild(outputsList);
+            
+            drawerIO.appendChild(inputsSection);
+            drawerIO.appendChild(outputsSection);
+            
+            drawer.appendChild(drawerHeader);
+            drawer.appendChild(drawerContent);
+            drawer.appendChild(drawerIO);
+            
+            // Append all elements to component
+            component.appendChild(inputsColumn);
+            component.appendChild(titleContainer);
+            component.appendChild(outputsColumn);
+            component.appendChild(drawer);
             
             return component;
         }

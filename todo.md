@@ -1,22 +1,25 @@
 # Component Mockup Project Todo
 
 - [x] Clarify user requirements for the component mockup
-- [x] Create static HTML container with requested modifications
-  - [x] Remove title and icon from component-header
-  - [x] Keep title only in component-body-title-container
-- [x] Set up GitHub repository
-  - [x] Initialize local git repository
-  - [x] Create remote GitHub repository
-  - [x] Push code to GitHub
+- [x] Design optimized hierarchical framework
+  - [x] Create grid-based layout structure
+  - [x] Implement direct port attachment
+  - [x] Ensure minimal negative space between elements
+- [x] Implement new component structure
+  - [x] Build clean HTML structure with logical hierarchy
+  - [x] Apply CSS Grid for better alignment
+  - [x] Create responsive sizing based on content
 - [x] Test and open visual mockup in browser
 - [x] Deploy live public URL for real-time updates
-  - [x] Deploy to permanent URL
-  - [x] Verify deployment is working
-  - [x] Share URL with user
+  - [x] Set up Python http.server
+  - [x] Expose port with public URL
+  - [x] Verify real-time updates
 - [x] Iterate on design with user feedback
-  - [x] Remove component-header completely
-  - [x] Attach component-category to the top of component-body
-  - [x] Push updates to GitHub repository
+  - [x] Add global address to component-category (e.g., "Dendro.Filters.C0001")
+  - [x] Add input/output references to tooltips
+  - [x] Reposition tooltips to emerge from bottom of component
+  - [ ] Implement additional design changes as requested
+- [ ] Push to GitHub on user request
 - [ ] Report and send final results
   - [ ] Provide final screenshots
   - [ ] Ensure all code is pushed to GitHub
