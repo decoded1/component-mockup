@@ -9,6 +9,10 @@
   - [x] Create remote GitHub repository
   - [x] Push code to GitHub
 - [x] Test and open visual mockup in browser
+- [x] Deploy live public URL for real-time updates
+  - [x] Deploy to permanent URL
+  - [x] Verify deployment is working
+  - [x] Share URL with user
 - [ ] Iterate on design with user feedback
   - [ ] Implement additional design changes as requested
   - [ ] Push updates to GitHub repository
