@@ -56,17 +56,6 @@
                 0 0 0 1px rgba(59, 130, 246, 0.2);
         }
 
-        .component-header {
-            padding: 6px 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            position: relative;
-            border-radius: 5px 5px 0 0;
-            min-height: 28px;
-        }
-
         .component-category {
             position: absolute;
             top: -5px;
@@ -86,7 +75,7 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            border-radius: 0 0 5px 5px;
+            border-radius: 5px;
             min-height: fit-content;
             justify-content: center;
             align-items: stretch;
@@ -420,10 +409,8 @@
             component.style.width = '120px';
 
             component.innerHTML = `
-                <div class="component-header">
-                    <div class="component-category">${componentDef.category}.${componentDef.subCategory}</div>
-                </div>
                 <div class="component-body">
+                    <div class="component-category">${componentDef.category}.${componentDef.subCategory}</div>
                     <div class="component-body-title-container">
                         <div class="component-body-title">${componentDef.nickName || componentDef.name}</div>
                     </div>
@@ -507,11 +494,9 @@
             component.querySelector('.component-body').style.minHeight = `${bodyMinHeight}px`;
             
             const bodyHeight = component.querySelector('.component-body').offsetHeight;
-            const headerHeight = component.querySelector('.component-header').offsetHeight;
-            const totalHeight = headerHeight + bodyHeight;
             
             // Set the component height based on the calculated dimensions
-            component.style.height = `${totalHeight}px`;
+            component.style.height = `${bodyHeight}px`;
             
             // Remove from body and return for proper placement
             document.body.removeChild(component);
