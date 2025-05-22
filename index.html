@@ -35,13 +35,10 @@
         .component {
             position: absolute;
             background: linear-gradient(145deg, rgba(30, 30, 35, 0.9), rgba(20, 20, 25, 0.9));
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: .5px solid rgba(255, 255, 255, 0.08);
             border-radius: 6px;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            box-shadow: 
-                0 4px 16px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
             display: grid;
             grid-template-columns: 15px auto 15px;
             overflow: visible;
@@ -59,16 +56,16 @@
         .component-title {
             grid-column: 2;
             background: rgba(20, 20, 25, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-            padding: 3px;
-            margin: 8px 0;
+            border: .5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 6px;
+            margin: 2px 0;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 30px;
+            width: auto;
             justify-self: center;
         }
 
@@ -114,11 +111,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 8px;
             font-weight: 600;
             color: #ffffff;
             cursor: pointer;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .port:hover {
@@ -134,6 +132,24 @@
             background: #6366f1;
         }
 
+        /* Port label is now inside the port */
+        .port-label {
+            position: static;
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            white-space: nowrap;
+            text-align: center;
+        }
+        
+        /* Remove the old positioning */
+        /* .port.input .port-label {
+            right: 20px;
+        }
+
+        .port.output .port-label {
+            left: 20px;
+        } */
+
         /* Tooltip */
         .component-drawer {
             position: absolute;
@@ -142,17 +158,21 @@
             transform: translateX(-50%) translateY(100%);
             background: rgba(15, 15, 20, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            padding: 8px 12px;
-            width: 240px;
+            border-radius: 8px;
+            padding: 12px 16px;
+            min-width: 280px;
+            max-width: 400px;
+            width: auto;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.2s ease;
+            transition: opacity 0.3s ease, bottom 0.3s ease;
             z-index: 10;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        .component:hover .component-drawer {
+        .component-drawer.active {
             opacity: 1;
             bottom: -15px;
             pointer-events: all;
@@ -161,64 +181,131 @@
         .component-drawer-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
         }
 
         .component-drawer-title {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
+            color: #ffffff;
+            margin-right: 12px;
         }
 
         .component-category {
             font-size: 10px;
             font-weight: 500;
             color: #a855f7;
-            background: rgba(168, 85, 247, 0.1);
-            padding: 2px 6px;
+            background: rgba(168, 85, 247, 0.15);
+            padding: 3px 8px;
             border-radius: 4px;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .component-drawer-content {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .library-name {
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.4;
-            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 12px;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+        }
+        
+        .library-name::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20'/%3E%3C/svg%3E");
+            background-size: contain;
+            margin-right: 6px;
+            opacity: 0.7;
         }
         
         .component-drawer-io {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            margin-top: 8px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            font-size: 12px;
         }
         
         .component-drawer-io-section {
-            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .component-drawer-io-title {
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
             color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .component-drawer-io-title::before {
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-right: 6px;
+            opacity: 0.9;
+        }
+        
+        .component-drawer-io-section:first-child .component-drawer-io-title::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.9)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m12 19-7-7 7-7'/%3E%3Cpath d='M19 12H5'/%3E%3C/svg%3E");
+            background-size: contain;
+        }
+        
+        .component-drawer-io-section:last-child .component-drawer-io-title::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.9)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7 7 7-7'/%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
+            background-size: contain;
+            transform: rotate(-90deg);
         }
         
         .component-drawer-io-list {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            padding: 8px;
         }
         
         .component-drawer-io-item {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            padding: 4px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: background 0.2s ease;
+        }
+        
+        .component-drawer-io-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .component-drawer-io-item strong {
+            color: #ffffff;
+            margin-bottom: 2px;
         }
         
         .component-drawer-io-item span {
-            margin-left: 4px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 10px;
         }
     </style>
 </head>
@@ -228,21 +315,58 @@
     </div>
 
     <script>
+        // Global variables for tooltip behavior
+        let hoverTimer = null;
+        let activeTooltip = null;
+        
+        // Handle document clicks to close tooltip when clicking outside
+        document.addEventListener('click', function(event) {
+            if (activeTooltip && !activeTooltip.contains(event.target) && 
+                !event.target.closest('.component')) {
+                activeTooltip.classList.remove('active');
+                activeTooltip = null;
+            }
+        });
+        
         // Component data
         const componentData = [
             {
-                title: "vBlend",
-                category: "Dendro.Filters.C0001",
-                description: "Blends multiple vertex attributes together using weights.",
-                inputs: ["A", "B", "t", "E", "M"],
-                outputs: ["R"]
-            },
-            {
-                title: "Edges",
-                category: "Surface.Analysis.C0002",
-                description: "Detects and extracts edge features from a surface.",
-                inputs: ["B"],
-                outputs: ["En", "Ei", "Em"]
+                name: "Char Sequence",
+                nickName: "CharSeq",
+                category: "Sets",
+                subCategory: "Sequence",
+                description: "Create a sequence of textual characters.",
+                libraryName: "Math Components",
+                global_address: "C0005",
+                category_address: "Sets.002",
+                inputs: [
+                    {
+                        name: "Count",
+                        nickName: "C",
+                        typeName: "Integer",
+                        address: "C0005.I01"
+                    },
+                    {
+                        name: "Char Pool",
+                        nickName: "P",
+                        typeName: "Text",
+                        address: "C0005.I02"
+                    },
+                    {
+                        name: "Format",
+                        nickName: "F",
+                        typeName: "Text",
+                        address: "C0005.I03"
+                    }
+                ],
+                outputs: [
+                    {
+                        name: "Sequence",
+                        nickName: "S",
+                        typeName: "Text",
+                        address: "C0005.O01"
+                    }
+                ]
             }
         ];
 
@@ -250,8 +374,8 @@
         function createComponent(data, x, y) {
             const component = document.createElement('div');
             component.className = 'component';
-            component.style.left = `${x}px`;
-            component.style.top = `${y}px`;
+            component.style.left = `${x - 30}px`;
+            component.style.top = `${y - 30}px`;
             
             // Create input ports column
             const inputsColumn = document.createElement('div');
@@ -260,7 +384,16 @@
             data.inputs.forEach(input => {
                 const port = document.createElement('div');
                 port.className = 'port input';
-                port.textContent = input;
+                port.setAttribute('data-name', input.name);
+                port.setAttribute('data-nickname', input.nickName);
+                port.setAttribute('data-type', input.typeName);
+                port.setAttribute('data-address', input.address);
+                
+                const portLabel = document.createElement('div');
+                portLabel.className = 'port-label';
+                portLabel.textContent = input.nickName;
+                
+                port.appendChild(portLabel);
                 inputsColumn.appendChild(port);
             });
             
@@ -270,7 +403,7 @@
             
             const titleText = document.createElement('div');
             titleText.className = 'component-title-text';
-            titleText.textContent = data.title;
+            titleText.textContent = data.nickName;
             titleContainer.appendChild(titleText);
             
             // Create output ports column
@@ -280,7 +413,16 @@
             data.outputs.forEach(output => {
                 const port = document.createElement('div');
                 port.className = 'port output';
-                port.textContent = output;
+                port.setAttribute('data-name', output.name);
+                port.setAttribute('data-nickname', output.nickName);
+                port.setAttribute('data-type', output.typeName);
+                port.setAttribute('data-address', output.address);
+                
+                const portLabel = document.createElement('div');
+                portLabel.className = 'port-label';
+                portLabel.textContent = output.nickName;
+                
+                port.appendChild(portLabel);
                 outputsColumn.appendChild(port);
             });
             
@@ -293,11 +435,11 @@
             
             const drawerTitle = document.createElement('div');
             drawerTitle.className = 'component-drawer-title';
-            drawerTitle.textContent = data.title;
+            drawerTitle.textContent = data.name;
             
             const category = document.createElement('div');
             category.className = 'component-category';
-            category.textContent = data.category;
+            category.textContent = `${data.category}.${data.subCategory}.${data.global_address}`;
             
             drawerHeader.appendChild(drawerTitle);
             drawerHeader.appendChild(category);
@@ -305,6 +447,10 @@
             const drawerContent = document.createElement('div');
             drawerContent.className = 'component-drawer-content';
             drawerContent.textContent = data.description;
+            
+            const libraryName = document.createElement('div');
+            libraryName.className = 'library-name';
+            libraryName.textContent = `Library: ${data.libraryName}`;
             
             // Create IO reference section
             const drawerIO = document.createElement('div');
@@ -324,7 +470,7 @@
             data.inputs.forEach(input => {
                 const inputItem = document.createElement('div');
                 inputItem.className = 'component-drawer-io-item';
-                inputItem.innerHTML = `<strong>${input}</strong><span>: Parameter</span>`;
+                inputItem.innerHTML = `<strong>${input.name} (${input.nickName})</strong><span>: ${input.typeName} - ${input.address}</span>`;
                 inputsList.appendChild(inputItem);
             });
             
@@ -345,7 +491,7 @@
             data.outputs.forEach(output => {
                 const outputItem = document.createElement('div');
                 outputItem.className = 'component-drawer-io-item';
-                outputItem.innerHTML = `<strong>${output}</strong><span>: Result</span>`;
+                outputItem.innerHTML = `<strong>${output.name} (${output.nickName})</strong><span>: ${output.typeName} - ${output.address}</span>`;
                 outputsList.appendChild(outputItem);
             });
             
@@ -357,6 +503,7 @@
             
             drawer.appendChild(drawerHeader);
             drawer.appendChild(drawerContent);
+            drawer.appendChild(libraryName);
             drawer.appendChild(drawerIO);
             
             // Append all elements to component
@@ -365,21 +512,83 @@
             component.appendChild(outputsColumn);
             component.appendChild(drawer);
             
+            // Add hover event listeners for tooltip behavior
+            component.addEventListener('mouseenter', function() {
+                const tooltipElement = this.querySelector('.component-drawer');
+                
+                // Clear any existing timer
+                if (hoverTimer) {
+                    clearTimeout(hoverTimer);
+                }
+                
+                // Set timer for 1 second delay
+                hoverTimer = setTimeout(() => {
+                    // Deactivate any other active tooltip
+                    if (activeTooltip && activeTooltip !== tooltipElement) {
+                        activeTooltip.classList.remove('active');
+                    }
+                    
+                    // Activate this tooltip
+                    tooltipElement.classList.add('active');
+                    activeTooltip = tooltipElement;
+                }, 1000);
+            });
+            
+            component.addEventListener('mouseleave', function(event) {
+                // Clear the timer if mouse leaves before tooltip is shown
+                if (hoverTimer) {
+                    clearTimeout(hoverTimer);
+                    hoverTimer = null;
+                }
+                
+                // Check if we're moving to the tooltip
+                const tooltipElement = this.querySelector('.component-drawer');
+                const relatedTarget = event.relatedTarget;
+                
+                // Only hide if not moving to the tooltip
+                if (relatedTarget !== tooltipElement && !tooltipElement.contains(relatedTarget)) {
+                    // Small delay to allow moving to tooltip
+                    setTimeout(() => {
+                        if (!tooltipElement.matches(':hover')) {
+                            tooltipElement.classList.remove('active');
+                            if (activeTooltip === tooltipElement) {
+                                activeTooltip = null;
+                            }
+                        }
+                    }, 100);
+                }
+            });
+            
+            // Add mouse events to tooltip itself
+            const tooltipElement = component.querySelector('.component-drawer');
+            tooltipElement.addEventListener('mouseleave', function(event) {
+                // Check if we're moving back to the component
+                const relatedTarget = event.relatedTarget;
+                const parentComponent = this.closest('.component');
+                
+                // Only hide if not moving to the component
+                if (relatedTarget !== parentComponent && !parentComponent.contains(relatedTarget)) {
+                    this.classList.remove('active');
+                    if (activeTooltip === this) {
+                        activeTooltip = null;
+                    }
+                }
+            });
+            
             return component;
         }
 
         function initializeComponents() {
             const workspace = document.getElementById('workspace');
             
-            const positions = [
-                { x: 250, y: 180 },
-                { x: 420, y: 200 }
-            ];
+            // Center position - middle of the workspace
+            const position = { 
+                x: window.innerWidth / 2, 
+                y: window.innerHeight / 2 
+            };
 
-            componentData.forEach((componentDef, index) => {
-                const component = createComponent(componentDef, positions[index].x, positions[index].y);
-                workspace.appendChild(component);
-            });
+            const component = createComponent(componentData[0], position.x, position.y);
+            workspace.appendChild(component);
         }
 
         document.addEventListener('DOMContentLoaded', initializeComponents);
