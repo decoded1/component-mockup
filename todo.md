@@ -13,9 +13,10 @@
   - [x] Deploy to permanent URL
   - [x] Verify deployment is working
   - [x] Share URL with user
-- [ ] Iterate on design with user feedback
-  - [ ] Implement additional design changes as requested
-  - [ ] Push updates to GitHub repository
+- [x] Iterate on design with user feedback
+  - [x] Remove component-header completely
+  - [x] Attach component-category to the top of component-body
+  - [x] Push updates to GitHub repository
 - [ ] Report and send final results
   - [ ] Provide final screenshots
   - [ ] Ensure all code is pushed to GitHub
